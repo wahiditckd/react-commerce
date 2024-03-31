@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 .wrapper {
-  @apply max-w-[1200px] px-1 mx-auto;
+  @apply max-w-[1200px] px-1 mx-auto w-full;
+}
+
+.btn {
+  @apply border border-neutral-200 bg-slate-900 text-white hover:bg-slate-800 hover:text-neutral-50 min-w-[50px] text-center rounded-lg min-h-[30px];
+}
+
+.btn-red {
+  @apply border border-neutral-200 bg-color-main text-white hover:bg-slate-800 hover:text-neutral-50 min-w-[50px] text-center rounded-lg min-h-[50px] flex items-center justify-center;
 }

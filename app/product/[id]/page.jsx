@@ -1,0 +1,76 @@
+"use client";
+import React from "react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getData } from "@/lib/services";
+import Basecontent from "@/components/basecontent";
+
+function DataPageDetail() {
+  const params = useParams();
+  //console.log(params.id);
+
+  const getQuery = async () => {
+    return await getData(`/products/${params.id}`);
+  };
+
+  const query = useQuery({
+    queryKey: ["productDetail"],
+    queryFn: getQuery,
+  });
+
+  if (query.isLoading) {
+    return (
+      <div className="wrspper relative flex justify-center mt-10">
+        <div className="animate-pulse w-full flex gap-4">
+          <div className="rounded-sm bg-slate-200 h-[100px] w-full"></div>
+        </div>
+      </div>
+    );
+  }
+
+  const dataContent = query.data?.data;
+  console.log(dataContent?.title);
+
+  return (
+    <div className="wrapper py-11">
+      <div className="flex">
+        <div className="w-6/12">
+          {dataContent?.image ? (
+            <Image src={`${dataContent?.image}`} width={500} height={500} />
+          ) : (
+            <Image src="/images/no-image-square.jpg" width={500} height={500} />
+          )}
+        </div>
+        <div className="w-6/12">
+          <h1 className="text-4xl font font-bold text-color-main">
+            {dataContent?.title}
+          </h1>
+          <h5 className="my-3">Category: {dataContent?.category}</h5>
+          <h4 className="my-4 text-2xl font-bold">${dataContent?.price}</h4>
+          <div className="text-lg font-bold">{dataContent?.description}</div>
+          <p>
+            Your perfect pack for everyday use and walks in the forest. Stash
+            your laptop (up to 15 inches) in the padded sleeve, your everyday
+          </p>
+          <div className="my-5">Rating</div>
+          <dv className="flex gap-3 items-center">
+            <div className="relative btn">-</div>
+            <div>1</div>
+            <div className="relative btn">+</div>
+          </dv>
+          <div className="btn-red ny-4">Add to cart</div>
+        </div>
+      </div>
+    </div>
+  );
+
+  console.log(query.data);
+}
+export default function PageDetail() {
+  return (
+    <Basecontent>
+      <DataPageDetail />
+    </Basecontent>
+  );
+}

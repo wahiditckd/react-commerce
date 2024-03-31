@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { getData } from "@/lib/services";
 import { FaStar, FaRegStar } from "react-icons/fa";
+
 export default function ItemProduct(props) {
   const [product, setProduct] = useState([]);
+
   // const getProduct = getData("/products");
   // useEffect(() => {
   //   getProduct.then((res) => {
@@ -38,6 +40,7 @@ export default function ItemProduct(props) {
           {props.title ? props.title : "no title"}
         </h2>
         <div className="flex gap-2">
+          {" "}
           {props.rate <= 1 ? (
             <>
               <FaStar />
@@ -79,9 +82,10 @@ export default function ItemProduct(props) {
             </>
           )}
         </div>
-        <div className="flex justify-between">
-          {props.price ? props.price : "no price"}
-        </div>
+      </div>
+
+      <div className="flex justify-between">
+        {props.price ? props.price : "no price"}
       </div>
     </div>
   );
