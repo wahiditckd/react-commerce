@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ import { getData } from "@/lib/services";
 import Basecontent from "@/components/basecontent";
 
 function DataPageDetail() {
+  const [cartValue, setCartValue] = useState(0);
   const params = useParams();
   //console.log(params.id);
 
@@ -30,7 +31,8 @@ function DataPageDetail() {
   }
 
   const dataContent = query.data?.data;
-  console.log(dataContent?.title);
+  //console.log(dataContent?.title);
+  console.log(cartValue);
 
   return (
     <div className="wrapper py-11">
@@ -55,9 +57,23 @@ function DataPageDetail() {
           </p>
           <div className="my-5">Rating</div>
           <dv className="flex gap-3 items-center">
-            <div className="relative btn">-</div>
-            <div>1</div>
-            <div className="relative btn">+</div>
+            <div
+              className="relative btn cursor-pointer"
+              onClick={() => {
+                if (cartValue > 0) {
+                  setCartValue(cartValue - 1);
+                }
+              }}
+            >
+              -
+            </div>
+            <div>{cartValue}</div>
+            <div
+              className="relative btn cursor-pointer"
+              onClick={() => setCartValue(cartValue + 1)}
+            >
+              +
+            </div>
           </dv>
           <div className="btn-red ny-4">Add to cart</div>
         </div>

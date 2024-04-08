@@ -24,14 +24,14 @@ export default function ItemProduct(props) {
             src={`${props.image ? props.image : "/images/no-image-square.jpg"}`}
             width={1049}
             height={1500}
-            alt="props.title"
+            alt={props.title}
           />
         </div>
         <Link
           href={`${props.link ? props.link : "/"}`}
           className="bg-slate-400 rounded-lg text-white px-4 py-3 text-center hover:bg-black"
         >
-          Buy Now
+          Detail
         </Link>
         <h5 className="text-lg">
           {props.category ? props.category : "no category"}

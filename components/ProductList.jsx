@@ -47,7 +47,7 @@ export default function ProductList() {
           <ItemProduct
             category={item.category}
             image={item.image}
-            link={"/product/${item.id}"}
+            link={`/product/${item.id}`}
             title={item.title}
             price={`$${item.price}`}
             rate={parseInt(`${item.rating.rate}`)}
