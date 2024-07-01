@@ -5,9 +5,13 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "@/lib/services";
 import Basecontent from "@/components/basecontent";
+import { useStore } from "@/lib/store";
 
 function DataPageDetail() {
   const [cartValue, setCartValue] = useState(0);
+  const { cart, updateCart, test } = useStore();
+  console.log(cart);
+
   const params = useParams();
   //console.log(params.id);
 
@@ -56,7 +60,7 @@ function DataPageDetail() {
             your laptop (up to 15 inches) in the padded sleeve, your everyday
           </p>
           <div className="my-5">Rating</div>
-          <dv className="flex gap-3 items-center">
+          <div className="flex gap-3 items-center">
             <div
               className="relative btn cursor-pointer"
               onClick={() => {
@@ -74,8 +78,21 @@ function DataPageDetail() {
             >
               +
             </div>
-          </dv>
-          <div className="btn-red ny-4">Add to cart</div>
+          </div>
+          <div
+            className="btn-red my-4 "
+            onClick={() =>
+              updateCart(
+                dataContent?.id,
+                dataContent?.price,
+                dataContent?.title,
+                dataContent?.image,
+                cartValue
+              )
+            }
+          >
+            Add to cart
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +101,8 @@ function DataPageDetail() {
   console.log(query.data);
 }
 export default function PageDetail() {
+  const { cart, productName, price } = useStore();
+  console.log(productName);
   return (
     <Basecontent>
       <DataPageDetail />

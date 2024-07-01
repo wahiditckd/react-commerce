@@ -3,8 +3,19 @@ import React from "react";
 import ItemProduct from "@/components/ItemProduct";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "@/lib/services";
+import _ from "lodash";
+import { useRouter, useSearchParams } from "next/navigation";
+
+export const getQuery = async () => {
+  return await getData("/products");
+};
 
 export default function ProductList() {
+  const searchParams = useSearchParams();
+  const paramsCategory = searchParams.get("category");
+  const paramsSort = searchParams.get("sort");
+
+  console.log({ paramsSort });
   const getQuery = async () => {
     return await getData("/products");
   };
@@ -20,7 +31,7 @@ export default function ProductList() {
         <div className="animate-pulse w-full flex gap-4">
           <div className="rounded-sm bg-slate-200 h-[100px] w-full"></div>
           <div className="rounded-sm bg-slate-200 h-[100px] w-full"></div>
-          <div className="rounded-sm bg-slate-200 h-[100px] w-full"></div>
+          <div className="rounded-sm bg-slate-200 h-[100px] w-full hidden lg:block"></div>
         </div>
       </div>
     );
@@ -36,15 +47,43 @@ export default function ProductList() {
     );
   }
 
-  console.log(query.data.data);
-
   const myData = query.data.data;
 
+  const newData =
+    paramsCategory && !paramsSort
+      ? _.filter(myData, (item) => {
+          return item.category === paramsCategory;
+        })
+      : !paramsCategory && paramsSort
+      ? _.filter(myData, (item) => {
+          return myData;
+        }).sort((a, b) => {
+          if (paramsSort === "low") {
+            return a.price - b.price;
+          }
+          if (paramsSort === "high") {
+            return b.price - a.price;
+          }
+        })
+      : paramsCategory && paramsSort
+      ? _.filter(myData, (item) => {
+          return item.category === paramsCategory;
+        }).sort((a, b) => {
+          if (paramsSort === "low") {
+            return a.price - b.price;
+          }
+          if (paramsSort === "high") {
+            return b.price - a.price;
+          }
+        })
+      : myData;
+
   return (
-    <div className="relative flex flex-wrap -mx-4">
-      {myData.map((item) => {
+    <div className="relative flex flex-wrap  lg:-mx-4 -mx-2 ">
+      {newData?.map((item) => {
         return (
           <ItemProduct
+            key={item.id}
             category={item.category}
             image={item.image}
             link={`/product/${item.id}`}

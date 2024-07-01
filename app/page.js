@@ -13,7 +13,7 @@ export default function Home() {
     <div className="wrapper">
       <Basecontent>
         <div className="my-7">
-          <div className="flex items-center justify-between w-full">
+          <div className="flex lg:flex-row flex-col lg:items-center gap-5 justify-between w-full">
             <FilterData />
             <SortData />
           </div>
