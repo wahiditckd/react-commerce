@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <>
       <div className="fixed bottom-3 right-3 text-4xl bg-slate-200 p-2 rounded-lg">
-        <Link href="https://wa.me/6281748219014">
+        <Link href="https://wa.me/6285748616251">
           <FaWhatsapp className="text-green-400" />
         </Link>
       </div>
