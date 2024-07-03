@@ -28,10 +28,10 @@ export async function POST(req) {
   if (data.length === 0) {
     throw new Error("data not found");
   }
-  // return NextResponse.json({
-  // message: "ini post",
-  //  });
-  //}
+  //   return NextResponse.json({
+  //     message: "ini post",
+  //   });
+  // }
 
   const itemDetails = data.map((item) => {
     return {
@@ -55,21 +55,23 @@ export async function POST(req) {
     },
   };
 
-  //const parameter = {
+  // const parameter = {
   // item_details: [
   //  {
   //  id: _.random(100000, 999999),
-  //price: 2000,
-  //quantity: 1,
+  // price: 2000,
+  // quantity: 1,
   // name: "ini name",
-  //},
-  //],
+  // },
+  // ],
   // transaction_details: {
-  //order_id: _.random(100000, 999999),
+  // order_id: _.random(100000, 999999),
   //  gross_amount: 2000,
-  //},
+  // },
 
   const token = await snap.createTransactionToken(parameter);
+
+  //console.log(parameter);
 
   return NextResponse.json({ token });
 }
